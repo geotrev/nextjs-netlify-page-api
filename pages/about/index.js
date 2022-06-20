@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react"
 
 function AboutPage() {
-  const { content, setContent } = useState(null)
+  const [content, setContent] = useState()
 
   useEffect(() => {
-    fetch("/about")
-      .then((res) => {
+    fetch("/api/about")
+      .then(async (res) => {
         if (res.ok) {
           return res.json()
         }
       })
-      .then((content) => {
+      .then(({ content }) => {
         setContent(content)
+      })
+      .catch((e) => {
+        console.log(e)
       })
   }, [])
 
